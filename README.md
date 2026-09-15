@@ -1,39 +1,44 @@
-# WinDrv-Backup
+# Win-Drv-Backup
 
-> A universal, lightweight, and 100% native Windows utility to back up all installed hardware drivers before reinstalling Windows, and restore them with a single click.
+A clean, native, and zero-dependency solution to backup and restore all third-party Windows drivers using built-in system tools (`DISM` and `PnpUtil`).
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011%20%7C%208.1%20%7C%20Server-0078D6?logo=windows&logoColor=white)](#system-requirements)
-[![Language](https://img.shields.io/badge/Language-Windows%20Batch-4EAA25?logo=gnubash&logoColor=white)](#how-it-works-under-the-hood)
-[![Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Native)-brightgreen)](#)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+No third-party software, no installers, no external scripts, and no background services.
 
 ---
 
-## 📌 Overview
-
-When you reinstall Windows, essential drivers like Wi-Fi, Ethernet, Audio, and Display are often missing. Searching for them manually on manufacturer websites can take hours, especially if you have no internet connection.
-
-**WinDrv-Backup** solves this problem cleanly and safely:
-* **Before reinstalling:** It extracts all working third-party hardware drivers already installed on your PC into a single folder.
-* **After reinstalling:** It automatically scans that folder and reinstalls every driver for your matching hardware.
-* **100% Clean & Native:** Uses official built-in Windows deployment tools (**DISM** and **PnPUtil**). No installers, no background services, no third-party software, and no internet required.
-
----
-
-## 💻 System Requirements
-
-* **Operating System:** Windows 11, Windows 10, Windows 8.1, or Windows Server (32-bit & 64-bit).
-* **Permissions:** Administrator access (the scripts automatically request UAC elevation if needed).
-* **Connection:** None (works 100% offline).
+## 📌 Table of Contents
+1. [Why Use This Tool?](#why-use-this-tool)
+2. [How It Works](#how-it-works)
+3. [⚠️ Critical Warning: Read Before Formatting](#️-critical-warning-read-before-formatting)
+4. [Complete Step-by-Step Tutorial](#complete-step-by-step-tutorial)
+   - [Phase 1: Taking the Backup](#phase-1-taking-the-backup)
+   - [Phase 2: Saving to an External Drive (USB)](#phase-2-saving-to-an-external-drive-usb)
+   - [Phase 3: Installing Clean Windows](#phase-3-installing-clean-windows)
+   - [Phase 4: Restoring Drivers](#phase-4-restoring-drivers)
+5. [Alternative Restoration Methods](#alternative-restoration-methods)
+6. [What Gets Backed Up?](#what-gets-backed-up)
+7. [Troubleshooting & Common Questions](#troubleshooting--common-questions)
+8. [Compatibility](#compatibility)
 
 ---
 
-## 📁 Repository Structure
+## Why Use This Tool?
 
-```text
-WinDrv-Backup/
-├── Backup-Drivers.bat    # Run this to back up drivers
-├── Restore-Drivers.bat   # Run this to restore drivers
-├── .gitignore            # Excludes temporary and backup files from Git
-├── LICENSE               # Apache License 2.0
-└── README.md             # Project documentation
+Commercial driver updater and backup tools often install adware, collect telemetry, run unwanted background services, or back up incompatible files. 
+
+**Win-Drv-Backup** solves this problem safely:
+- **100% Native:** Runs exclusively on standard Windows components (`DISM.exe` and `pnputil.exe`).
+- **Zero Dependencies:** Does not require Python, PowerShell modules, runtimes, or an active internet connection.
+- **Clean & Fast:** Backs up only installed OEM/hardware drivers (excluding huge default Microsoft inbox drivers).
+- **Fully Auditable:** Both batch scripts can be opened and inspected directly in Notepad.
+
+---
+
+## How It Works
+
+Windows provides two official administrative tools to handle device drivers:
+
+1. **DISM (Deployment Image Servicing and Management):**  
+   The `backup.bat` script runs:
+   ```cmd
+   dism /online /export-driver /destination:"C:\Backup_Driver"
