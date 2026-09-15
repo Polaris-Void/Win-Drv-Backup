@@ -1,3 +1,9 @@
+<p align="right">
+  <a href="README.fa.md">🇮🇷 <strong>مطالعه به زبان فارسی</strong></a>
+</p>
+
+---
+
 # Windows Driver Backup & Restore Utility
 
 A lightweight, automated, and batch-script-based utility for backing up and restoring OEM drivers on Windows operating systems using native command-line tools (**DISM** and **PnPUtil**).
