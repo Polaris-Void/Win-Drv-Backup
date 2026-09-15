@@ -1,5 +1,5 @@
 <p align="right">
-  <a href="README.fa.md">🇮🇷 <strong>مطالعه به زبان فارسی</strong></a>
+  <a href="README.fa.md"> <strong>فارسی</strong></a>
 </p>
 
 ---
