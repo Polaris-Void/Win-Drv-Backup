@@ -53,7 +53,6 @@ Zero third-party software required — 100% native, clean, and reliable.
 
 By default, drivers are backed up to and restored from:
 
-```cmd
 C:\Backup_Driver
 
 ---
